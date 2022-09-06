@@ -1,8 +1,10 @@
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_firebase/app/app_store.dart';
 import 'package:flutter_firebase/app/modules/home/home_store.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_modular/flutter_modular.dart';
+import 'package:mobx/mobx.dart';
 
 class HomePage extends StatefulWidget {
   final String title;
@@ -17,24 +19,22 @@ class _HomePageState extends ModularState<HomePage, HomeStore> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Center(child: Text('Login page')),
-      ),
       body: Center(
         child: Column(
           children: [
             const Spacer(
-              flex: 1,
+              flex: 2,
             ),
             Padding(
               padding: const EdgeInsets.all(8.0),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: const [
-                  Text(
-                    "Realize aqui o seu Login",
-                    style: TextStyle(fontSize: 20),
-                  )
+                  Icon(
+                    Icons.person_rounded,
+                    size: 180,
+                    color: Color.fromRGBO(255, 202, 40, 1),
+                  ),
                 ],
               ),
             ),
@@ -46,7 +46,8 @@ class _HomePageState extends ModularState<HomePage, HomeStore> {
                   child: TextField(
                     onChanged: store.setLoginUser,
                     decoration: const InputDecoration(
-                      border: OutlineInputBorder(),
+                      border: UnderlineInputBorder(
+                          borderSide: BorderSide(color: Colors.black45)),
                       hintText: 'Login',
                     ),
                   ),
@@ -61,10 +62,32 @@ class _HomePageState extends ModularState<HomePage, HomeStore> {
                   child: TextField(
                     onChanged: store.setPasswordUser,
                     decoration: const InputDecoration(
-                      border: OutlineInputBorder(),
+                      border: UnderlineInputBorder(
+                          borderSide: BorderSide(color: Colors.black45)),
                       hintText: 'Password',
                     ),
                   ),
+                ),
+              );
+            }),
+            Observer(builder: (_) {
+              return Padding(
+                padding: const EdgeInsets.only(top: 16, right: 75),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  children: [
+                    FloatingActionButton(
+                      backgroundColor: Color.fromRGBO(255, 202, 40, 1),
+                      onPressed: () async {
+                        //Chama o metodo para autenticar e depois a rota
+                        store.setLoginAndPassword();
+                        Modular.to.navigate('/homeautenticado');
+                      },
+                      child: const Icon(
+                        Icons.arrow_forward_ios_rounded,
+                      ),
+                    ),
+                  ],
                 ),
               );
             }),
@@ -74,27 +97,22 @@ class _HomePageState extends ModularState<HomePage, HomeStore> {
           ],
         ),
       ),
-      floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
-      floatingActionButton: Row(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          FloatingActionButton(
-            onPressed: () async {
-              //Chama o metodo para autenticar e depois a rota
-              store.setLoginAndPassword();
-              Modular.to.navigate('/homeautenticado');
-            },
-            child: const Icon(Icons.login),
-          ),
-        ],
-      ),
     );
   }
+
+  List<ReactionDisposer> disposers = [];
 
   @override
   void initState() {
     //Confere o estado da autenticação
     appStore.getAuthState();
     super.initState();
+    appStore.newToken();
+    // reaction(
+    //   (r) => store.authlogin != null,
+    //   (_) {
+    //     print(store.authlogin);
+    //   },
+    // );
   }
 }

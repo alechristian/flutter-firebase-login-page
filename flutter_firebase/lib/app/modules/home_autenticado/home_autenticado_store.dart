@@ -12,9 +12,21 @@ abstract class _HomeAutenticadoStoreBase with Store {
       Modular.get<HomeAutenticadoRepository>();
 
   ObservableFuture<void>? authState;
+  ObservableFuture<void>? chamaBd;
+  ObservableFuture<void>? readBd;
 
   @action
   getSignOut() async {
     authState = repository.signOut().asObservable();
+  }
+
+  @action
+  postAddBd() async {
+    chamaBd = repository.addData().asObservable();
+  }
+
+  @action
+  getReadData() async {
+    readBd = repository.readData().asObservable();
   }
 }

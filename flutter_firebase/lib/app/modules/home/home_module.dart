@@ -10,7 +10,7 @@ class HomeModule extends Module {
   final List<Bind> binds = [
     Bind.lazySingleton((i) => HomeStore()),
     Bind.lazySingleton((i) => HomeModule()),
-    Bind.lazySingleton((i) => HomeRepository(i.get())),
+    Bind.lazySingleton((i) => HomeRepository()),
     Bind.lazySingleton((i) => AppStore()),
   ];
 
