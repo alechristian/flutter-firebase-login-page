@@ -1,118 +1,124 @@
-import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_firebase/app/app_store.dart';
 import 'package:flutter_firebase/app/modules/home/home_store.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_modular/flutter_modular.dart';
-import 'package:mobx/mobx.dart';
 
-class HomePage extends StatefulWidget {
-  final String title;
-  const HomePage({Key? key, this.title = "Home"}) : super(key: key);
+class Home extends StatefulWidget {
+  const Home({Key? key}) : super(key: key);
 
   @override
-  _HomePageState createState() => _HomePageState();
+  State<Home> createState() => _HomeState();
 }
 
-class _HomePageState extends ModularState<HomePage, HomeStore> {
+class _HomeState extends ModularState<Home, HomeStore> {
   AppStore appStore = Modular.get<AppStore>();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Center(
-        child: Column(
-          children: [
-            const Spacer(
-              flex: 2,
+      appBar: AppBar(
+        leading: IconButton(
+          icon: const Icon(Icons.arrow_back, color: Colors.white),
+          onPressed: () {
+            store.getSignOut();
+            Modular.to.navigate('/login');
+          },
+        ),
+        backgroundColor: const Color.fromRGBO(12, 45, 72, 1),
+      ),
+      body: Observer(builder: (_) {
+        return Center(
+          child: Column(mainAxisAlignment: MainAxisAlignment.center, children: [
+            const Icon(
+              Icons.app_registration_rounded,
+              size: 150,
+              color: Color.fromRGBO(247, 150, 52, 1),
             ),
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: const [
-                  Icon(
-                    Icons.person_rounded,
-                    size: 180,
-                    color: Color.fromRGBO(255, 202, 40, 1),
-                  ),
-                ],
-              ),
-            ),
-            Observer(builder: (_) {
-              return Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: SizedBox(
-                  width: 250,
-                  child: TextField(
-                    onChanged: store.setLoginUser,
-                    decoration: const InputDecoration(
-                      border: UnderlineInputBorder(
-                          borderSide: BorderSide(color: Colors.black45)),
-                      hintText: 'Login',
-                    ),
-                  ),
-                ),
-              );
-            }),
-            Observer(builder: (_) {
-              return Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: SizedBox(
-                  width: 250,
-                  child: TextField(
-                    onChanged: store.setPasswordUser,
-                    decoration: const InputDecoration(
-                      border: UnderlineInputBorder(
-                          borderSide: BorderSide(color: Colors.black45)),
-                      hintText: 'Password',
-                    ),
-                  ),
-                ),
-              );
-            }),
-            Observer(builder: (_) {
-              return Padding(
-                padding: const EdgeInsets.only(top: 16, right: 75),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.end,
-                  children: [
-                    FloatingActionButton(
-                      backgroundColor: Color.fromRGBO(255, 202, 40, 1),
-                      onPressed: () async {
-                        //Chama o metodo para autenticar e depois a rota
-                        store.setLoginAndPassword();
-                        Modular.to.navigate('/homeautenticado');
-                      },
-                      child: const Icon(
-                        Icons.arrow_forward_ios_rounded,
+            SizedBox(height: MediaQuery.of(context).size.height * 0.02),
+            Column(
+              children: const [
+                Padding(
+                  padding: EdgeInsets.all(8.0),
+                  child: SizedBox(
+                    width: 320,
+                    height: 50,
+                    child: TextField(
+                      // onChanged:
+                      decoration: InputDecoration(
+                        border: OutlineInputBorder(
+                            borderRadius: BorderRadius.all(Radius.circular(16)),
+                            borderSide: BorderSide(color: Colors.black45)),
+                        hintText: 'Nome',
                       ),
                     ),
-                  ],
+                  ),
                 ),
-              );
-            }),
-            const Spacer(
-              flex: 2,
+                Padding(
+                  padding: EdgeInsets.all(8.0),
+                  child: SizedBox(
+                    width: 320,
+                    height: 50,
+                    child: TextField(
+                      // onChanged: store
+                      decoration: InputDecoration(
+                        border: OutlineInputBorder(
+                            borderRadius: BorderRadius.all(Radius.circular(16)),
+                            borderSide: BorderSide(color: Colors.black45)),
+                        hintText: 'Sobrenome',
+                      ),
+                    ),
+                  ),
+                ),
+                Padding(
+                  padding: EdgeInsets.all(8.0),
+                  child: SizedBox(
+                    width: 320,
+                    height: 50,
+                    child: TextField(
+                      // onChanged:
+                      decoration: InputDecoration(
+                        border: OutlineInputBorder(
+                            borderRadius: BorderRadius.all(Radius.circular(16)),
+                            borderSide: BorderSide(color: Colors.black45)),
+                        hintText: 'Contato',
+                      ),
+                    ),
+                  ),
+                ),
+                Padding(
+                  padding: EdgeInsets.all(8.0),
+                  child: SizedBox(
+                    width: 320,
+                    height: 50,
+                    child: TextField(
+                      // onChanged:
+                      decoration: InputDecoration(
+                        border: OutlineInputBorder(
+                            borderRadius: BorderRadius.all(Radius.circular(16)),
+                            borderSide: BorderSide(color: Colors.black45)),
+                        hintText: 'Endereço',
+                      ),
+                    ),
+                  ),
+                ),
+              ],
             )
-          ],
-        ),
+          ]),
+        );
+      }),
+      floatingActionButton: FloatingActionButton(
+        backgroundColor: Color.fromRGBO(247, 150, 52, 1),
+        onPressed: () async {},
+        child: const Icon(Icons.exit_to_app),
       ),
     );
   }
-
-  List<ReactionDisposer> disposers = [];
 
   @override
   void initState() {
     //Confere o estado da autenticação
     appStore.getAuthState();
+
     super.initState();
-    appStore.newToken();
-    // reaction(
-    //   (r) => store.authlogin != null,
-    //   (_) {
-    //     print(store.authlogin);
-    //   },
-    // );
   }
 }
