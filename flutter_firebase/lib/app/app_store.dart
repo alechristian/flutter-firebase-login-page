@@ -12,6 +12,7 @@ abstract class AppStoreBase with Store {
   ObservableFuture<void>? authState;
   ObservableFuture<void>? token;
   var fcmToken = FirebaseMessaging.instance.getToken();
+  ObservableFuture<void>? adicionaDados;
 
   @action
   getAuthState() async {
@@ -35,4 +36,29 @@ abstract class AppStoreBase with Store {
 
   @observable
   String? idade;
+
+  @action
+  setNome(value) => nome = value;
+
+  @action
+  setCidade(value) => cidade = value;
+
+  @action
+  setContato(value) => contato = value;
+
+  @action
+  setIdade(value) => idade = value;
+
+  @action
+  printDados() {
+    print('nome: ${nome}');
+    print('cidade: ${cidade}');
+    print('contato: ${contato}');
+    print('idade: ${idade}');
+  }
+
+  @action
+  imputDados() async {
+    adicionaDados = repository.addData().asObservable();
+  }
 }

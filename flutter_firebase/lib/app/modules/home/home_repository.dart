@@ -23,12 +23,4 @@ class HomeRepository {
     await db.collection("users").add(user).then((DocumentReference doc) =>
         print('DocumentSnapshot added with ID: ${doc.id}'));
   }
-
-  Future<void> readData() async {
-    await db.collection("users").get().then((event) {
-      for (var doc in event.docs) {
-        print("${doc.id} => ${doc.data()}");
-      }
-    });
-  }
 }

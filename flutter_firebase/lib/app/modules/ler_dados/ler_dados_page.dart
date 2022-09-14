@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_firebase/app/modules/ler_dados/ler_dados_store.dart';
+import 'package:flutter_modular/flutter_modular.dart';
 
 class LerDadosPage extends StatefulWidget {
   final String title;
@@ -6,7 +8,8 @@ class LerDadosPage extends StatefulWidget {
   @override
   LerDadosPageState createState() => LerDadosPageState();
 }
-class LerDadosPageState extends State<LerDadosPage> {
+
+class LerDadosPageState extends ModularState<LerDadosPage, LerDadosStore> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -14,7 +17,13 @@ class LerDadosPageState extends State<LerDadosPage> {
         title: Text(widget.title),
       ),
       body: Column(
-        children: <Widget>[],
+        children: <Widget>[
+          TextButton(
+              onPressed: () {
+                store.getReadData();
+              },
+              child: Text("teste"))
+        ],
       ),
     );
   }

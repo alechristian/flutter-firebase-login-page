@@ -86,6 +86,72 @@ mixin _$AppStore on AppStoreBase, Store {
     return _$newTokenAsyncAction.run(() => super.newToken());
   }
 
+  late final _$imputDadosAsyncAction =
+      AsyncAction('AppStoreBase.imputDados', context: context);
+
+  @override
+  Future imputDados() {
+    return _$imputDadosAsyncAction.run(() => super.imputDados());
+  }
+
+  late final _$AppStoreBaseActionController =
+      ActionController(name: 'AppStoreBase', context: context);
+
+  @override
+  dynamic setNome(dynamic value) {
+    final _$actionInfo = _$AppStoreBaseActionController.startAction(
+        name: 'AppStoreBase.setNome');
+    try {
+      return super.setNome(value);
+    } finally {
+      _$AppStoreBaseActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
+  dynamic setCidade(dynamic value) {
+    final _$actionInfo = _$AppStoreBaseActionController.startAction(
+        name: 'AppStoreBase.setCidade');
+    try {
+      return super.setCidade(value);
+    } finally {
+      _$AppStoreBaseActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
+  dynamic setContato(dynamic value) {
+    final _$actionInfo = _$AppStoreBaseActionController.startAction(
+        name: 'AppStoreBase.setContato');
+    try {
+      return super.setContato(value);
+    } finally {
+      _$AppStoreBaseActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
+  dynamic setIdade(dynamic value) {
+    final _$actionInfo = _$AppStoreBaseActionController.startAction(
+        name: 'AppStoreBase.setIdade');
+    try {
+      return super.setIdade(value);
+    } finally {
+      _$AppStoreBaseActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
+  dynamic printDados() {
+    final _$actionInfo = _$AppStoreBaseActionController.startAction(
+        name: 'AppStoreBase.printDados');
+    try {
+      return super.printDados();
+    } finally {
+      _$AppStoreBaseActionController.endAction(_$actionInfo);
+    }
+  }
+
   @override
   String toString() {
     return '''

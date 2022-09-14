@@ -8,6 +8,8 @@ import 'package:flutter_firebase/app/modules/ler_dados/ler_dados_module.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 
 import 'modules/home/home_module.dart';
+import 'modules/ler_dados/ler_dados_repository.dart';
+import 'modules/ler_dados/ler_dados_store.dart';
 import 'modules/login/login_module.dart';
 
 class AppModule extends Module {
@@ -21,6 +23,9 @@ class AppModule extends Module {
     Bind.singleton((i) => HomeStore()),
     Bind.singleton((i) => HomeRepository()),
     Bind.singleton((i) => HomeModule()),
+    Bind.singleton((i) => LerDadosStore()),
+    Bind.singleton((i) => LerDadosRepository()),
+    Bind.singleton((i) => LerDadosModule()),
   ];
 
   @override

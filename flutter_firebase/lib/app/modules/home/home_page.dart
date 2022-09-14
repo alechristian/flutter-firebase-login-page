@@ -17,6 +17,8 @@ class _HomeState extends ModularState<Home, HomeStore> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        title: Text("Cadastro"),
+        centerTitle: true,
         leading: IconButton(
           icon: const Icon(Icons.arrow_back, color: Colors.white),
           onPressed: () {
@@ -28,87 +30,100 @@ class _HomeState extends ModularState<Home, HomeStore> {
       ),
       body: Observer(builder: (_) {
         return Center(
-          child: Column(mainAxisAlignment: MainAxisAlignment.center, children: [
+          child: Column(children: [
+            SizedBox(
+              height: MediaQuery.of(context).size.height * 0.1,
+            ),
             const Icon(
               Icons.app_registration_rounded,
               size: 150,
               color: Color.fromRGBO(247, 150, 52, 1),
             ),
             SizedBox(height: MediaQuery.of(context).size.height * 0.02),
-            Column(
-              children: const [
-                Padding(
-                  padding: EdgeInsets.all(8.0),
-                  child: SizedBox(
-                    width: 320,
-                    height: 50,
-                    child: TextField(
-                      // onChanged:
-                      decoration: InputDecoration(
-                        border: OutlineInputBorder(
-                            borderRadius: BorderRadius.all(Radius.circular(16)),
-                            borderSide: BorderSide(color: Colors.black45)),
-                        hintText: 'Nome',
+            SingleChildScrollView(
+              child: Column(
+                children: [
+                  Padding(
+                    padding: EdgeInsets.all(8.0),
+                    child: SizedBox(
+                      width: 320,
+                      height: 50,
+                      child: TextField(
+                        onChanged: appStore.setNome,
+                        decoration: const InputDecoration(
+                          border: OutlineInputBorder(
+                              borderRadius:
+                                  BorderRadius.all(Radius.circular(16)),
+                              borderSide: BorderSide(color: Colors.black45)),
+                          hintText: 'Nome',
+                        ),
                       ),
                     ),
                   ),
-                ),
-                Padding(
-                  padding: EdgeInsets.all(8.0),
-                  child: SizedBox(
-                    width: 320,
-                    height: 50,
-                    child: TextField(
-                      // onChanged: store
-                      decoration: InputDecoration(
-                        border: OutlineInputBorder(
-                            borderRadius: BorderRadius.all(Radius.circular(16)),
-                            borderSide: BorderSide(color: Colors.black45)),
-                        hintText: 'Sobrenome',
+                  Padding(
+                    padding: EdgeInsets.all(8.0),
+                    child: SizedBox(
+                      width: 320,
+                      height: 50,
+                      child: TextField(
+                        onChanged: appStore.setCidade,
+                        decoration: const InputDecoration(
+                          border: OutlineInputBorder(
+                              borderRadius:
+                                  BorderRadius.all(Radius.circular(16)),
+                              borderSide: BorderSide(color: Colors.black45)),
+                          hintText: 'cidade',
+                        ),
                       ),
                     ),
                   ),
-                ),
-                Padding(
-                  padding: EdgeInsets.all(8.0),
-                  child: SizedBox(
-                    width: 320,
-                    height: 50,
-                    child: TextField(
-                      // onChanged:
-                      decoration: InputDecoration(
-                        border: OutlineInputBorder(
-                            borderRadius: BorderRadius.all(Radius.circular(16)),
-                            borderSide: BorderSide(color: Colors.black45)),
-                        hintText: 'Contato',
+                  Padding(
+                    padding: EdgeInsets.all(8.0),
+                    child: SizedBox(
+                      width: 320,
+                      height: 50,
+                      child: TextField(
+                        onChanged: appStore.setContato,
+                        decoration: const InputDecoration(
+                          border: OutlineInputBorder(
+                              borderRadius:
+                                  BorderRadius.all(Radius.circular(16)),
+                              borderSide: BorderSide(color: Colors.black45)),
+                          hintText: 'Contato',
+                        ),
                       ),
                     ),
                   ),
-                ),
-                Padding(
-                  padding: EdgeInsets.all(8.0),
-                  child: SizedBox(
-                    width: 320,
-                    height: 50,
-                    child: TextField(
-                      // onChanged:
-                      decoration: InputDecoration(
-                        border: OutlineInputBorder(
-                            borderRadius: BorderRadius.all(Radius.circular(16)),
-                            borderSide: BorderSide(color: Colors.black45)),
-                        hintText: 'Endereço',
+                  Padding(
+                    padding: EdgeInsets.all(8.0),
+                    child: SizedBox(
+                      width: 320,
+                      height: 50,
+                      child: TextField(
+                        onChanged: appStore.setIdade,
+                        decoration: const InputDecoration(
+                          border: OutlineInputBorder(
+                              borderRadius:
+                                  BorderRadius.all(Radius.circular(16)),
+                              borderSide: BorderSide(color: Colors.black45)),
+                          hintText: 'Idade',
+                        ),
                       ),
                     ),
                   ),
-                ),
-              ],
+                ],
+              ),
             )
           ]),
         );
       }),
       floatingActionButton: FloatingActionButton(
         backgroundColor: Color.fromRGBO(247, 150, 52, 1),
-        onPressed: () async {},
+        onPressed: () async {
+          // appStore.printDados();
+          // appStore.imputDados();
+          Modular.to.navigate("/lerdados");
+        },
         child: const Icon(Icons.exit_to_app),
       ),
     );

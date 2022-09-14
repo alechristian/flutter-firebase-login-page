@@ -9,40 +9,18 @@ part of 'ler_dados_store.dart';
 // ignore_for_file: non_constant_identifier_names, unnecessary_brace_in_string_interps, unnecessary_lambdas, prefer_expression_function_bodies, lines_longer_than_80_chars, avoid_as, avoid_annotating_with_dynamic, no_leading_underscores_for_local_identifiers
 
 mixin _$LerDadosStore on _LerDadosStoreBase, Store {
-  late final _$valueAtom =
-      Atom(name: '_LerDadosStoreBase.value', context: context);
+  late final _$getReadDataAsyncAction =
+      AsyncAction('_LerDadosStoreBase.getReadData', context: context);
 
   @override
-  int get value {
-    _$valueAtom.reportRead();
-    return super.value;
-  }
-
-  @override
-  set value(int value) {
-    _$valueAtom.reportWrite(value, super.value, () {
-      super.value = value;
-    });
-  }
-
-  late final _$_LerDadosStoreBaseActionController =
-      ActionController(name: '_LerDadosStoreBase', context: context);
-
-  @override
-  void increment() {
-    final _$actionInfo = _$_LerDadosStoreBaseActionController.startAction(
-        name: '_LerDadosStoreBase.increment');
-    try {
-      return super.increment();
-    } finally {
-      _$_LerDadosStoreBaseActionController.endAction(_$actionInfo);
-    }
+  Future getReadData() {
+    return _$getReadDataAsyncAction.run(() => super.getReadData());
   }
 
   @override
   String toString() {
     return '''
-value: ${value}
+
     ''';
   }
 }

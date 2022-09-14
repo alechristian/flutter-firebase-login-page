@@ -22,9 +22,4 @@ abstract class _HomeStoreBase with Store {
   postAddBd() async {
     chamaBd = repository.addData().asObservable();
   }
-
-  @action
-  getReadData() async {
-    readBd = repository.readData().asObservable();
-  }
 }

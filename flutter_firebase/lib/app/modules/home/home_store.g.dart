@@ -25,14 +25,6 @@ mixin _$HomeStore on _HomeStoreBase, Store {
     return _$postAddBdAsyncAction.run(() => super.postAddBd());
   }
 
-  late final _$getReadDataAsyncAction =
-      AsyncAction('_HomeStoreBase.getReadData', context: context);
-
-  @override
-  Future getReadData() {
-    return _$getReadDataAsyncAction.run(() => super.getReadData());
-  }
-
   @override
   String toString() {
     return '''
