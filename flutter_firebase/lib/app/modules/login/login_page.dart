@@ -81,8 +81,9 @@ class _LoginPageState extends ModularState<LoginPage, LoginStore> {
                       backgroundColor: Color.fromRGBO(255, 202, 40, 1),
                       onPressed: () async {
                         //Chama o metodo para autenticar e depois a rota
-                        store.setLoginAndPassword();
-                        Modular.to.navigate('/home');
+                        store
+                            .setLoginAndPassword()
+                            .whenComplete(() => Modular.to.navigate('/home'));
                       },
                       child: const Icon(
                         Icons.arrow_forward_ios_rounded,
