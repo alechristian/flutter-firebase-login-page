@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_firebase/app/app_store.dart';
@@ -16,6 +17,7 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends ModularState<LoginPage, LoginStore> {
+  FirebaseAuthException? firebaseAuthException;
   AppStore appStore = Modular.get<AppStore>();
   @override
   Widget build(BuildContext context) {
@@ -81,9 +83,16 @@ class _LoginPageState extends ModularState<LoginPage, LoginStore> {
                       backgroundColor: Color.fromRGBO(255, 202, 40, 1),
                       onPressed: () async {
                         //Chama o metodo para autenticar e depois a rota
-                        store
-                            .setLoginAndPassword()
-                            .whenComplete(() => Modular.to.navigate('/home'));
+                        store.setLoginAndPassword();
+                        // await store.authlogin?.error == null
+                        //     ? Modular.to.navigate('/home')
+                        //     : print("DEU ERRO");
+
+                        firebaseAuthException!.code.isEmpty
+                            ? Modular.to.navigate('/home')
+                            : "DEU ERRO AQUI";
+
+                        // store.setLoginAndPassword();
                       },
                       child: const Icon(
                         Icons.arrow_forward_ios_rounded,
@@ -110,6 +119,7 @@ class _LoginPageState extends ModularState<LoginPage, LoginStore> {
     appStore.getAuthState();
     super.initState();
     appStore.newToken();
+
     // reaction(
     //   (r) => store.authlogin != null,
     //   (_) {
